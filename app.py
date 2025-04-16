@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-import webbrowser
 import threading
 import numpy as np
 import pandas as pd
@@ -45,11 +44,11 @@ def predict_datapoint():
         return render_template('home.html', results=results[0])
 
 # Function to open the browser automatically
-def open_browser():
-    webbrowser.open_new("http://127.0.0.1:5000/")
-
 if __name__ == "__main__":
-    threading.Timer(1, open_browser).start()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # Get the port from the environment variable, default to 10000 for Render
+    port = int(os.environ.get("PORT", 10000))
+    
+    # Run the Flask app on the Render-assigned port
+    app.run(host="0.0.0.0", port=port, debug=True)
 
 
